@@ -1,2 +1,2 @@
-# album-react
-AlbumReact
+# React Photo
+
