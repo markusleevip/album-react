@@ -1,15 +1,21 @@
 import React from 'react';
+import PhotoItem from './PhotoItem';
+import '../style/PhotoList.css'
+
+const serverUrl = "http://127.0.0.1:8000/";
 
 class PhotoList extends React.Component{
+  
     constructor(){
       super()
       this.state = {
         isLoaded: false,
         items: []
       };
-    }    
+    }
+
     handleclick(){
-      fetch('http://127.0.0.1:8000/albums/all', {
+      fetch(serverUrl+'albums/all', {
         method: "GET", 
       })
       .then(response => response.json())
@@ -21,29 +27,31 @@ class PhotoList extends React.Component{
         console.log(this.state.items)
       })
     }
+    
     render(){
-        const {  isLoaded, items } = this.state;  
-        if(isLoaded) {
+      const {  isLoaded, items } = this.state;      
+      if(isLoaded) {
         return (      
           <div className="App">        
             <button onClick={this.handleclick.bind(this)}>Get photos</button>
             <h1>Photos List</h1>
             <ul>
               {items.map(item => (
-                <li key={item.NameSha256}>
-                  <a target="_blank" rel="noopener noreferrer" href={'http://127.0.0.1:8000/show/'+item.FilePath +'/'+item.FileName}>
-                    <img src={'http://127.0.0.1:8000/show/'+item.FilePath +'/'+item.Preview} alt={item.FileName} />
-                  </a>
-                </li>
+                <PhotoItem 
+                  aUrl={serverUrl+'show/'+item.FilePath +'/'+item.FileName}
+                  imgUrl = {serverUrl+'show/'+item.FilePath +'/'+item.Preview}
+                  fileName = {item.FileName}
+                />                
               ))}
             </ul>
           </div>        
         );
-        }else return (
-        <div className="App">
-            <button onClick={this.handleclick.bind(this)}>Get photos</button>
-        </div>
-        );
+      }else return (
+      <div className="App">
+          <button onClick={this.handleclick.bind(this)}>Get photos</button>
+      </div>
+      );
     }
   }
+
   export default PhotoList;
