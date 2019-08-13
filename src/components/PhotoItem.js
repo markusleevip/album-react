@@ -1,6 +1,6 @@
 import React from 'react';
 
-class PhotoItem extends React.Component {
+class PhotoItem extends React.Component {   
     render(){
         const {aUrl,imgUrl,fileName} = this.props;
         return (
@@ -8,7 +8,7 @@ class PhotoItem extends React.Component {
                 <a target="_blank" rel="noopener noreferrer" href={aUrl}>
                     <img src={imgUrl} alt={fileName}/>
                 </a>
-            </li>
+            </li>            
         );
     }
 }
