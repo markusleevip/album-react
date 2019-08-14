@@ -3,6 +3,28 @@ body {
     padding: 0;
 }
 
-ul {
+.photo-detail img {
+    width: 900px;
+}
+
+.photo-detail li {
+    display: inline;
+    margin-left: 10px;
+}
+
+.photo-list {
+    display: inline;
+}
+ ul {
     list-style: none;
 }
+
+.photo-list li {
+    display: inline;
+    margin-left: 10px;
+}
+
+.photo-list img{
+    width: 150px;
+}
+

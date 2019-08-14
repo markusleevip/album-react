@@ -1,8 +1,7 @@
 import React from 'react';
+import '../config';
 import PhotoItem from './PhotoItem';
 import '../style/PhotoList.css'
-
-const serverUrl = "http://127.0.0.1:8000/";
 
 class PhotoList extends React.Component{
   
@@ -10,12 +9,14 @@ class PhotoList extends React.Component{
       super()
       this.state = {
         isLoaded: false,
-        items: []
+        items: [],
+        serverUrl: global.constants.serverUrl,
       };
     }
 
-    handleclick(){
-      fetch(serverUrl+'albums/all', {
+    handleClick(){     
+      console.log(this.state.serverUrl);
+      fetch(this.state.serverUrl+'albums/all', {
         method: "GET", 
       })
       .then(response => response.json())
@@ -27,28 +28,21 @@ class PhotoList extends React.Component{
         console.log(this.state.items)
       })
     }
-    
+
     render(){
       const {  isLoaded, items } = this.state;      
       if(isLoaded) {
         return (      
           <div className="App">        
-            <button onClick={this.handleclick.bind(this)}>Get photos</button>
-            <h1>Photos List</h1>
-            <ul>
-              {items.map(item => (
-                <PhotoItem 
-                  aUrl={serverUrl+'show/'+item.FilePath +'/'+item.FileName}
-                  imgUrl = {serverUrl+'show/'+item.FilePath +'/'+item.Preview}
-                  fileName = {item.FileName}
-                />                
-              ))}
-            </ul>
+            <button onClick={this.handleClick.bind(this)}>Get photos</button>
+            <PhotoItem 
+                    photoItem = {items}
+            />            
           </div>        
         );
       }else return (
       <div className="App">
-          <button onClick={this.handleclick.bind(this)}>Get photos</button>
+          <button onClick={this.handleClick.bind(this)}>Get photos</button>
       </div>
       );
     }
