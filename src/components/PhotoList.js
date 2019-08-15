@@ -37,6 +37,7 @@ class PhotoList extends React.Component{
             <button onClick={this.handleClick.bind(this)}>Get photos</button>
             <PhotoItem 
                     photoItem = {items}
+                    nowItem = {items}
             />            
           </div>        
         );

@@ -7,24 +7,35 @@ body {
     width: 900px;
 }
 
-.photo-detail li {
-    display: inline;
+.photo-detail p {
+    display: inline-block;
+    font-size: 50px;
+    cursor:pointer;
+    color: darkgoldenrod;
+}
+
+li {
+    display: inline-block;
     margin-left: 10px;
+    vertical-align: middle;
 }
 
 .photo-list {
     display: inline;
 }
- ul {
+
+ul {
     list-style: none;
 }
 
-.photo-list li {
-    display: inline;
-    margin-left: 10px;
+.photo-list img {
+    width: 150px;
 }
 
-.photo-list img{
-    width: 150px;
+.photo-list p {
+    display: inline-block;
+    font-size: 20px;
+    cursor:pointer;
+    color: darkgoldenrod;
 }
 
