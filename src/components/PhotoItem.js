@@ -3,7 +3,7 @@ import '../config';
 class PhotoItem extends React.Component {
     constructor(props) {
         super(props);
-        console.log("constructor()");
+        this.timer = null;
         this.state = {
             serverUrl: global.constants.serverUrl,
             photoItem: props,
@@ -24,7 +24,10 @@ class PhotoItem extends React.Component {
     componentWillMount() {
         let current = localStorage.getItem('current');
         const {photoItem} = this.state.photoItem;
-        if (current !== isNaN){
+        if (current == null){
+            console.log("current is null.");
+            current = 0;            
+        }else {
             console.log("getCurrent:"+current);
             this.setState({current: parseInt(current)});            
         }
@@ -46,6 +49,12 @@ class PhotoItem extends React.Component {
         if ( current >=0){            
             this.changePhoto(current);
         }
+
+        this.timer = setInterval(this.handleNextPhoto, 5000)
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.timer)
     }
 
     handlePrePhoto(){
@@ -107,24 +116,24 @@ class PhotoItem extends React.Component {
                 <div>total:{this.state.total},current:{this.state.current}
                 ,startIndex:{this.state.startIndex},endIndex:{this.state.endIndex}</div>
                 <div className="photo-detail">
-                <ul>
-                    <li onClick={this.handlePrePhoto.bind(this)}>
-                        <p>⟸</p>                    
-                    </li>
-                    <li>
-                    <img src={this.state.showUrl} alt={this.state.showUrl}></img>
-                    </li>
-                    <li onClick={this.handleNextPhoto.bind(this)} >
-                        <p>⟹</p>
-                    </li>
-                </ul>
+                    <ul>
+                        <li onClick={this.handlePrePhoto.bind(this)}>
+                            <p>⟸</p>                    
+                        </li>
+                        <li>
+                        <img src={this.state.showUrl} alt={this.state.showUrl}></img>
+                        </li>
+                        <li onClick={this.handleNextPhoto.bind(this)} >
+                            <p>⟹</p>
+                        </li>
+                    </ul>
                 </div>
                 <div className="photo-list">
                 <ul>
                     <li onClick={this.handlePrePhoto.bind(this)} ><p>⟸</p></li>
                     {photoItem.map((item,index) => (
                         (index >this.state.startIndex) && (index <this.state.endIndex)     ?                                      
-                        <li key={item.FileName} onClick={this.changePhoto.bind(this,index)}>
+                        <li className={index===this.state.current ?"curLi":null} key={item.FileName} onClick={this.changePhoto.bind(this,index)}>
                             <img src={this.state.serverUrl+'show/'+item.FilePath +'/'+item.FileName} alt={item.FileName}/>
                         </li>:null
                     ))}

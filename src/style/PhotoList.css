@@ -39,3 +39,9 @@ ul {
     color: darkgoldenrod;
 }
 
+.curLi {
+    border-style:solid;
+    border-color:darkgoldenrod;
+    border-width:3px;
+}
+

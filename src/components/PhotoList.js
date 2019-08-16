@@ -23,7 +23,7 @@ class PhotoList extends React.Component{
       .then(data => { 
         this.setState({
           isLoaded: true,
-          items: data.Data
+          items: data.Data,
         });   
         console.log(this.state.items)
       })
@@ -37,7 +37,6 @@ class PhotoList extends React.Component{
             <button onClick={this.handleClick.bind(this)}>Get photos</button>
             <PhotoItem 
                     photoItem = {items}
-                    nowItem = {items}
             />            
           </div>        
         );
